@@ -3,14 +3,6 @@ import path from 'node:path';
 import fg from 'fast-glob';
 import { copy as copyAny } from 'copy-anything';
 
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { cwd } from 'node:process';
-
-// 系统路径
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(dirname(__filename));
-
 export function fnFilename(metaUrl) {
     return url.fileURLToPath(metaUrl);
 }
@@ -24,7 +16,7 @@ export function fnDirname(metaUrl) {
     return path.dirname(filename);
 }
 
-export function fnCliDir(metaUrl) {
+export function fnCliDir() {
     return path.join(fnDirname(import.meta.url));
 }
 
@@ -51,6 +43,7 @@ export async function fnImport(path, name, defaultValue) {
         let data = await import(path);
         return copyAny(data);
     } catch (err) {
+        console.log('🚀 ~ fnImport ~ err:', err);
         return copyAny({
             [name]: defaultValue
         });
@@ -93,21 +86,11 @@ export function fnGetEnvNames(promptParams, appDir) {
 export function fnOmit(obj, exclude = []) {
     let obj2 = {};
     for (let prop in obj) {
-        if (obj.hasOwnProperty(prop)) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             if (exclude.includes(prop) === false) {
                 obj2[prop] = obj[prop];
             }
         }
     }
     return obj2;
-}
-
-export function fnRequire(filePath, defaultValue) {
-    try {
-        const require = createRequire(fnFileProtocolPath(path.resolve(process.cwd())));
-        const result = require(filePath);
-        return result;
-    } catch (err) {
-        return defaultValue;
-    }
 }
