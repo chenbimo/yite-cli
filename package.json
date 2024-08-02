@@ -1,0 +1,95 @@
+{
+    "name": "yite-cli",
+    "version": "2.9.0",
+    "description": "专注于vite + vue3 的项目开发脚手架",
+    "main": "./index.js",
+    "module": "./index.js",
+    "exports": {
+        "./*": "./*"
+    },
+    "bin": {
+        "yite": "bin.js"
+    },
+    "type": "module",
+    "private": false,
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org"
+    },
+    "scripts": {
+        "test": "vitest --dir lib",
+        "test-ui": "vitest --ui --dir lib",
+        "lint": "eslint ./lib",
+        "lint:fix": "eslint ./lib --fix",
+        "format": "prettier --write .",
+        "inspect": "eslint --inspect-config"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/chenbimo/yite-cli"
+    },
+    "homepage": "https://chensuiyi.me",
+    "keywords": [
+        "vite",
+        "vue.js",
+        "vue-cli",
+        "webpack",
+        "cli",
+        "vue",
+        "web",
+        "脚手架"
+    ],
+    "files": [
+        "libs/",
+        "plugins/",
+        "scripts/",
+        "bin.js",
+        "index.js",
+        "LICENSE",
+        "package.json",
+        "README.md",
+        "todo.md",
+        "utils.js",
+        "vite.config.js"
+    ],
+    "author": "chensuiyi <bimostyle@qq.com>",
+    "dependencies": {
+        "@vitejs/plugin-vue": "^5.1.1",
+        "@vue-macros/reactivity-transform": "^1.0.0",
+        "colorette": "^2.0.20",
+        "copy-anything": "^4.0.2",
+        "fast-glob": "^3.3.2",
+        "fs-extra": "^11.2.0",
+        "got": "^14.4.2",
+        "log-symbols": "^6.0.0",
+        "merge-anything": "^6.0.2",
+        "pacote": "^18.0.6",
+        "portfinder": "^1.0.32",
+        "rollup-plugin-visualizer": "^5.12.0",
+        "unplugin-auto-import": "^0.18.2",
+        "unplugin-icons": "^0.19.1",
+        "unplugin-vue-components": "^0.27.3",
+        "vite": "^5.3.5",
+        "vite-plugin-vue-devtools": "^7.3.7",
+        "vue-i18n": "^9.13.1"
+    },
+    "devDependencies": {
+        "@eslint/config-inspector": "^0.5.2",
+        "@eslint/js": "^9.8.0",
+        "@vitest/ui": "^2.0.5",
+        "eslint": "^9.8.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "globals": "^15.9.0",
+        "lint-staged": "^15.2.7",
+        "prettier": "^3.3.3",
+        "simple-git-hooks": "^2.11.1",
+        "vitest": "^2.0.5"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "pnpm lint-staged"
+    },
+    "lint-staged": {
+        "*": "prettier --write ."
+    }
+}
