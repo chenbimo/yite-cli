@@ -1,6 +1,6 @@
 // 查找模块
 const importGlob = async (pattern) => {
-    return `import.meta.glob("${pattern}", {as: 'raw'})`;
+    return `import.meta.glob("${pattern}", {query: '?raw', import: 'default'})`;
 };
 
 // 生成虚拟模块
