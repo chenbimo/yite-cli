@@ -97,7 +97,12 @@ export default defineViteConfig(async ({ command, mode }) => {
             defaultExportByFilename: true,
             vueTemplate: true,
             dts: '.cache/auto-imports.d.ts',
-            resolvers: []
+            resolvers: [],
+            eslintrc: {
+                enabled: true,
+                filepath: './.cache/eslintrc-auto-import.json',
+                globalsPropValue: 'readonly'
+            }
         },
         fnOmit(yiteConfig?.autoImport || {}, ['resolvers']),
         {
