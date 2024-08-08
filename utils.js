@@ -62,7 +62,6 @@ export function fnGetEnvNames(promptParams, appDir) {
         .map((file) => {
             return file.replace('.env.', '');
         });
-    console.log('🚀 ~ fnGetEnvNames ~ envFiles:', envFiles);
     return envFiles;
 }
 
