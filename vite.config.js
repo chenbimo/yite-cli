@@ -4,7 +4,7 @@ import viteVue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import * as ComponentResolvers from 'unplugin-vue-components/resolvers';
-import logSymbols from 'log-symbols';
+import { cli4state } from 'cli4state';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 // import { viteZip as ZipFile } from 'vite-plugin-zip-file';
@@ -31,7 +31,7 @@ export default defineViteConfig(async ({ command, mode }) => {
     const yiteConfigPath = fnFileProtocolPath(path.resolve(appDir, 'yite.config.js'));
     const { yiteConfig } = await fnImport(yiteConfigPath, 'yiteConfig', {});
     if (!yiteConfig.viteConfig) {
-        console.log(`${logSymbols.error} 请确认是否存在 yite.config.js 文件`);
+        console.log(`${cli4state.error} 请确认是否存在 yite.config.js 文件`);
         process.exit();
     }
 

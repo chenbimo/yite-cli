@@ -1,6 +1,6 @@
 {
     "name": "yite-cli",
-    "version": "3.0.1",
+    "version": "3.3.0",
     "description": "专注于vite + vue3 的项目开发脚手架",
     "main": "./index.js",
     "module": "./index.js",
@@ -12,6 +12,7 @@
     },
     "type": "module",
     "private": false,
+    "license": "Apache-2.0",
     "publishConfig": {
         "access": "public",
         "registry": "https://registry.npmjs.org"
@@ -20,7 +21,7 @@
         "test": "vitest --dir lib",
         "test-ui": "vitest --ui --dir lib",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
+        "fix": "eslint . --fix",
         "format": "prettier --write .",
         "inspect": "eslint --inspect-config"
     },
@@ -43,51 +44,29 @@
         "libs/",
         "plugins/",
         "scripts/",
-        "bin.js",
         "index.js",
         "LICENSE",
         "package.json",
         "README.md",
-        "todo.md",
         "utils.js",
-        "vite.config.js"
+        "vite.config.js",
+        "yite-cli.js"
     ],
     "author": "chensuiyi <bimostyle@qq.com>",
     "dependencies": {
-        "@vitejs/plugin-vue": "^5.1.1",
-        "@vue-macros/reactivity-transform": "^1.0.0",
-        "colorette": "^2.0.20",
+        "@vitejs/plugin-vue": "^5.1.2",
+        "@vue-macros/reactivity-transform": "^1.0.3",
+        "cli4state": "^1.0.1",
         "fs-extra": "^11.2.0",
-        "got": "^14.4.2",
-        "log-symbols": "^6.0.0",
         "merge-anything": "^6.0.2",
         "pacote": "^18.0.6",
         "portfinder": "^1.0.32",
         "rollup-plugin-visualizer": "^5.12.0",
         "unplugin-auto-import": "^0.18.2",
-        "unplugin-icons": "^0.19.1",
+        "unplugin-icons": "^0.19.2",
         "unplugin-vue-components": "^0.27.3",
-        "vite": "^5.3.5",
+        "vite": "^5.4.0",
         "vite-plugin-vue-devtools": "^7.3.7",
         "vue-i18n": "^9.13.1"
-    },
-    "devDependencies": {
-        "@eslint/config-inspector": "^0.5.2",
-        "@eslint/js": "^9.8.0",
-        "eslint": "^9.8.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-prettier": "^5.2.1",
-        "globals": "^15.9.0",
-        "lint-staged": "^15.2.7",
-        "prettier": "^3.3.3",
-        "simple-git-hooks": "^2.11.1"
-    },
-    "simple-git-hooks": {
-        "pre-commit": "pnpm exec lint-staged"
-    },
-    "lint-staged": {
-        "*": [
-            "prettier --write --cache --ignore-unknown"
-        ]
     }
 }
