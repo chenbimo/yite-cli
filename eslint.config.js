@@ -16,9 +16,9 @@ export default [
     eslintPluginPrettierRecommended,
     {
         rules: {
-            'no-prototype-builtins': 'off',
+            'no-prototype-builtins': 'error',
             'max-len': 'off',
-            'no-unused-vars': 'off',
+            'no-unused-vars': 'error',
             'linebreak-style': ['error', 'unix']
         }
     }

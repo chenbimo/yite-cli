@@ -57,8 +57,6 @@
         "@vitejs/plugin-vue": "^5.1.1",
         "@vue-macros/reactivity-transform": "^1.0.0",
         "colorette": "^2.0.20",
-        "copy-anything": "^4.0.2",
-        "fast-glob": "^3.3.2",
         "fs-extra": "^11.2.0",
         "got": "^14.4.2",
         "log-symbols": "^6.0.0",
@@ -76,15 +74,13 @@
     "devDependencies": {
         "@eslint/config-inspector": "^0.5.2",
         "@eslint/js": "^9.8.0",
-        "@vitest/ui": "^2.0.5",
         "eslint": "^9.8.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.1",
         "globals": "^15.9.0",
         "lint-staged": "^15.2.7",
         "prettier": "^3.3.3",
-        "simple-git-hooks": "^2.11.1",
-        "vitest": "^2.0.5"
+        "simple-git-hooks": "^2.11.1"
     },
     "simple-git-hooks": {
         "pre-commit": "pnpm lint-staged"

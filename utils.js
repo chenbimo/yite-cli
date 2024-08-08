@@ -1,27 +1,26 @@
-import url from 'node:url';
-import path from 'node:path';
-import fg from 'fast-glob';
-import { copy as copyAny } from 'copy-anything';
+import { fileURLToPath } from 'node:url';
+import { basename, dirname, join, resolve } from 'node:path';
+import { readdirSync } from 'node:fs';
 
 export function fnFilename(metaUrl) {
-    return url.fileURLToPath(metaUrl);
+    return fileURLToPath(metaUrl);
 }
 
 export function fnPureFilename(metaUrl) {
-    return path.basename(fnFilename(metaUrl)).split('.')[0];
+    return basename(fnFilename(metaUrl)).split('.')[0];
 }
 
 export function fnDirname(metaUrl) {
-    const filename = url.fileURLToPath(metaUrl);
-    return path.dirname(filename);
+    const filename = fileURLToPath(metaUrl);
+    return dirname(filename);
 }
 
 export function fnCliDir() {
-    return path.join(fnDirname(import.meta.url));
+    return join(fnDirname(import.meta.url));
 }
 
 export function fnAppDir(workdir) {
-    return workdir ? path.resolve(process.cwd(), workdir) : process.cwd();
+    return workdir ? resolve(process.cwd(), workdir) : process.cwd();
 }
 
 // 获取file协议的路径
@@ -40,51 +39,36 @@ export function fnFileProtocolPath(_path) {
  */
 export async function fnImport(path, name, defaultValue) {
     try {
-        let data = await import(path);
-        return copyAny(data);
+        const data = await import(path);
+        return data;
     } catch (err) {
         console.log('🚀 ~ fnImport ~ err:', err);
-        return copyAny({
+        return {
             [name]: defaultValue
-        });
+        };
     }
 }
-
-// export async function fnImportModule(path, defaultValue) {
-//     try {
-//         let i = await import(path);
-//         if (i && i.default) {
-//             return i.default;
-//         } else {
-//             return i;
-//         }
-//     } catch (err) {
-//         return defaultValue;
-//     }
-// }
 
 /**
  * 获取所有环境变量.env文件的文件名组成的数组
  * @returns array 环境变量数组
  */
 export function fnGetEnvNames(promptParams, appDir) {
-    let envFiles = fg
-        .sync('.env.*', {
-            dot: true,
-            absolute: false,
-            cwd: path.resolve(appDir, 'src/env'),
-            onlyFiles: true,
-            ignore: ['.env.*.local']
+    const files = readdirSync(resolve(appDir, 'src', 'env'));
+    const envFiles = files
+        .filter((file) => {
+            return /\.env\.[\da-z]+/.test(file);
         })
-        .map((fileName) => {
-            return fileName.replace('.env.', '');
+        .map((file) => {
+            return file.replace('.env.', '');
         });
+    console.log('🚀 ~ fnGetEnvNames ~ envFiles:', envFiles);
     return envFiles;
 }
 
 // 排除掉无用的属性
 export function fnOmit(obj, exclude = []) {
-    let obj2 = {};
+    const obj2 = {};
     for (let prop in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             if (exclude.includes(prop) === false) {
