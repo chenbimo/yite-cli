@@ -91,7 +91,6 @@ export default defineViteConfig(async ({ command, mode }) => {
                 path.resolve(appDir, 'src', 'plugins'),
                 path.resolve(appDir, 'src', 'hooks'),
                 path.resolve(appDir, 'src', 'utils'),
-                path.resolve(appDir, 'src', 'stores'),
                 path.resolve(appDir, 'src', 'config')
             ],
             defaultExportByFilename: true,
