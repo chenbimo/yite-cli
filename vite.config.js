@@ -64,25 +64,38 @@ export default defineViteConfig(async ({ command, mode }) => {
                 {
                     'vue-router': [
                         //
-                        'useRouter',
-                        'useRoute',
-                        'useLink',
-                        'onBeforeRouteLeave',
-                        'onBeforeRouteUpdate',
+                        'RouterLink',
+                        'RouterView',
+                        'START_LOCATION',
                         'createMemoryHistory',
                         'createRouter',
                         'createWebHashHistory',
                         'createWebHistory',
                         'isNavigationFailure',
-                        'loadRouteLocation'
+                        'loadRouteLocation',
+                        'onBeforeRouteLeave',
+                        'onBeforeRouteUpdate',
+                        'useLink',
+                        'useRoute',
+                        'useRouter'
                     ],
                     pinia: [
                         //
-                        ['*', 'Pinia']
-                    ],
-                    'vue-i18n': [
-                        //
-                        'createI18n'
+                        'PiniaVuePlugin',
+                        'acceptHMRUpdate',
+                        'createPinia',
+                        'defineStore',
+                        'disposePinia',
+                        'getActivePinia',
+                        'mapActions',
+                        'mapGetters',
+                        'mapState',
+                        'mapStores',
+                        'mapWritableState',
+                        'setActivePinia',
+                        'setMapStoreSuffix',
+                        'skipHydrate',
+                        'storeToRefs'
                     ]
                 }
             ],
