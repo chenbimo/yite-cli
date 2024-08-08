@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import * as colors from 'colorette';
-import fs from 'fs-extra';
-import logSymbols from 'log-symbols';
-import { fileURLToPath } from 'node:url';
 import { minimist } from './libs/minimist.js';
 // yicode相关
 import { fnFileProtocolPath, fnGetEnvNames, fnAppDir, fnCliDir } from './utils.js';
