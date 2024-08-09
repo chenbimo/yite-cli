@@ -8,7 +8,7 @@
         "./*": "./*"
     },
     "bin": {
-        "yite": "yite-cli.js"
+        "yite": "./yite-cli.js"
     },
     "type": "module",
     "private": false,

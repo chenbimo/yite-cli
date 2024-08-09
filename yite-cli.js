@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import path from 'node:path';
-import colors from 'picocolors';
+import colors from './libs/picocolors.js';
 import { minimist } from './libs/minimist.js';
 // yicode相关
 import { fnFileProtocolPath, fnGetEnvNames, fnAppDir, fnCliDir } from './utils.js';
