@@ -157,7 +157,6 @@ export default defineViteConfig(async ({ command, mode }) => {
 
     // 插件列表
     let allPlugins = [];
-
     // allPlugins.push(Markdown()) ;
     allPlugins.push(yiteRouter({}));
     allPlugins.push(yiteI18n({}));
@@ -218,6 +217,7 @@ export default defineViteConfig(async ({ command, mode }) => {
             },
             root: appDir,
             base: './',
+            mode: process.env.YITE_CLI_MODE,
             envDir: path.resolve(appDir, 'src', 'env'),
             logLevel: 'info',
             build: {
