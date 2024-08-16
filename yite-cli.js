@@ -11,7 +11,7 @@ const docSite = `${colors.green('[ 使用文档请访问网址 ]')} ${colors.whi
 
 const appDir = fnAppDir(options.workdir);
 process.env.YITE_CLI_WORK_DIR = options.workdir || '.';
-process.env.YITE_CLI_MODE = options.mode || '';
+process.env.YITE_CLI_MODE = options.envfile || '';
 
 if (['dev', 'build', 'update'].includes(options['command']) === false) {
     console.log(`${colors.red('[ 命令错误 ]')} 只能为 dev 或 build，如：--command=dev`);
