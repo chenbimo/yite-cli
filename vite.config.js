@@ -12,6 +12,8 @@ import { ensureDirSync, readJsonSync, outputJsonSync } from 'fs-extra/esm';
 import portfinder from 'portfinder';
 
 import { mergeAndConcat } from 'merge-anything';
+import Unocss from 'unocss/vite';
+import { defineConfig as defineUnocssConfig } from 'unocss';
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
@@ -21,6 +23,7 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 // 内部文件
 import { yiteRouter } from './plugins/router.js';
 import { yiteI18n } from './plugins/i18n.js';
+import { unocssConfig } from './unocss.js';
 import { fnFileProtocolPath, fnOmit, fnImport, fnAppDir } from './utils.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
@@ -169,6 +172,7 @@ export default defineViteConfig(async ({ command, mode }) => {
 
     allPlugins.push(Components(componentsConfig));
     allPlugins.push(AutoImport(autoImportConfig));
+    allPlugins.push(Unocss(defineUnocssConfig(unocssConfig)));
     // allPlugins.push(ChunkSplit(chunkSplitConfig));
     // 默认不使用二维码，多个网卡情况下会很乱
     // allPlugins.push(YiteQrcode());
