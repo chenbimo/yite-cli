@@ -200,6 +200,7 @@ export default defineViteConfig(async ({ command, mode }) => {
             css: {
                 preprocessorOptions: {
                     scss: {
+                        api: 'modern',
                         additionalData: `@use "@/styles/variable.scss" as *;`
                     }
                 }
