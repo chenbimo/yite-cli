@@ -17,7 +17,8 @@ const createVirtualModuleCode = async (options) => {
             .replace('/route.js', '')
             .replace(/.*\\/pages/, '')
             .replace(/([a-z])([A-Z])/g,'$1-$2')
-            .replace(/([A-Z])([z-z])/g,'$1-$2')
+            .replace(/(\\d)/g, '$1-')
+            .replace(/-$/g, '')
             .toLowerCase()
             .replace(/[\\s_-]+/g, '-')
         }
