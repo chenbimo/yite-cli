@@ -5,7 +5,7 @@ import { minimist } from './libs/minimist.js';
 // yicode相关
 import { fnFileProtocolPath, fnGetEnvNames, fnAppDir, fnCliDir } from './utils.js';
 
-// 命令行参数2
+// 命令行参数
 const options = minimist(process.argv.slice(2));
 const docSite = `${colors.green('[ 使用文档请访问网址 ]')} ${colors.white('https://chensuiyi.me')}`;
 

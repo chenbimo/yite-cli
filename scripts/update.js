@@ -9,7 +9,7 @@ async function mainUpdate(options) {
     try {
         const appDir = fnAppDir(options.workdir);
         const updateDir = path.resolve(appDir, '.cache', 'npm-package');
-        const fetchData = await fetch(`https://registry.npmmirror.com/@yicode/yiadmin/latest`);
+        const fetchData = await fetch(`https://registry.npmmirror.com/@funpi/admin/latest`);
         const metaData = await fetchData.json();
         await pacote.extract(metaData.dist.tarball, updateDir, {});
         fs.copySync(path.resolve(updateDir, 'src', 'pages', 'internal'), path.resolve(appDir, 'src', 'pages', 'internal'));
