@@ -1,9 +1,8 @@
 import path from 'path';
 import fs from 'fs-extra';
 import pacote from 'pacote';
-import { cli4state } from 'cli4state';
 
-import { fnAppDir } from '../utils.js';
+import { fnAppDir, log4state } from '../utils/index.js';
 
 async function mainUpdate(options) {
     try {
@@ -16,10 +15,10 @@ async function mainUpdate(options) {
         fs.copySync(path.resolve(updateDir, 'src', 'config', 'internal.js'), path.resolve(appDir, 'src', 'config', 'internal.js'));
         fs.copySync(path.resolve(updateDir, 'src', 'utils', 'internal.js'), path.resolve(appDir, 'src', 'utils', 'internal.js'));
         fs.copySync(path.resolve(updateDir, 'src', 'styles', 'internal.scss'), path.resolve(appDir, 'src', 'styles', 'internal.scss'));
-        console.log(cli4state.success, '项目更新成功!');
+        console.log(log4state('success'), '项目更新成功!');
     } catch (error) {
         console.log('🚀 ~ file: update.js:20 ~ mainUpdate ~ error:', error);
-        console.log(cli4state.error, '资源错误或不存在!');
+        console.log(log4state('error'), '资源错误或不存在!');
     }
 }
 

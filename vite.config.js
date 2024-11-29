@@ -4,8 +4,8 @@ import viteVue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import * as ComponentResolvers from 'unplugin-vue-components/resolvers';
-import { cli4state } from 'cli4state';
 import { visualizer } from 'rollup-plugin-visualizer';
+import Inspect from 'vite-plugin-inspect';
 
 // import { viteZip as ZipFile } from 'vite-plugin-zip-file';
 import { ensureDirSync, readJsonSync, outputJsonSync } from 'fs-extra/esm';
@@ -24,7 +24,7 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 import { yiteRouter } from './plugins/router.js';
 import { yiteI18n } from './plugins/i18n.js';
 import { unocssConfig } from './unocss.js';
-import { fnFileProtocolPath, fnOmit, fnImport, fnAppDir } from './utils.js';
+import { fnFileProtocolPath, fnOmit, fnImport, fnAppDir, log4state } from './utils/index.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
 
@@ -34,7 +34,7 @@ export default defineViteConfig(async ({ command, mode }) => {
     const yiteConfigPath = fnFileProtocolPath(path.resolve(appDir, 'yite.config.js'));
     const { yiteConfig } = await fnImport(yiteConfigPath, 'yiteConfig', {});
     if (!yiteConfig.viteConfig) {
-        console.log(`${cli4state.error} 请确认是否存在 yite.config.js 文件`);
+        console.log(`${log4state('error')} 请确认是否存在 yite.config.js 文件`);
         process.exit();
     }
 
@@ -192,6 +192,9 @@ export default defineViteConfig(async ({ command, mode }) => {
 
     if (yiteConfig?.devtool === true) {
         allPlugins.push(VueDevTools({}));
+    }
+    if (yiteConfig?.inspect === true) {
+        allPlugins.push(Inspect({}));
     }
 
     const viteConfig = mergeAndConcat(

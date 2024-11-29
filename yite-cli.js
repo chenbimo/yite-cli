@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import path from 'node:path';
-import colors from './libs/picocolors.js';
-import { minimist } from './libs/minimist.js';
+import { colors } from './utils/colors.js';
+import { minimist } from './utils/minimist.js';
 // yicode相关
-import { fnFileProtocolPath, fnGetEnvNames, fnAppDir, fnCliDir } from './utils.js';
+import { fnFileProtocolPath, fnGetEnvNames, fnAppDir, fnCliDir } from './utils/index.js';
 
 // 命令行参数
 const options = minimist(process.argv.slice(2));

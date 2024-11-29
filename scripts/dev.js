@@ -1,7 +1,7 @@
 import { createServer } from 'vite';
 
 import path from 'path';
-import { fnCliDir } from '../utils.js';
+import { fnCliDir } from '../utils/index.js';
 
 async function mainDev(options) {
     const server = await createServer({
