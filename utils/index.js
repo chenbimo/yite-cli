@@ -3,27 +3,6 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { readdirSync } from 'node:fs';
 import { colors } from './colors.js';
 
-export function fnFilename(metaUrl) {
-    return fileURLToPath(metaUrl);
-}
-
-export function fnPureFilename(metaUrl) {
-    return basename(fnFilename(metaUrl)).split('.')[0];
-}
-
-export function fnDirname(metaUrl) {
-    const filename = fileURLToPath(metaUrl);
-    return dirname(filename);
-}
-
-export function fnCliDir() {
-    return join(fnDirname(import.meta.url));
-}
-
-export function fnAppDir(workdir) {
-    return workdir ? resolve(process.cwd(), workdir) : process.cwd();
-}
-
 // 获取file协议的路径
 export function fnFileProtocolPath(_path) {
     if (_path.startsWith('file:')) {

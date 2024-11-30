@@ -1,5 +1,6 @@
 import path from 'node:path';
-import { fnImport, fnFileProtocolPath, fnAppDir } from './utils/index.js';
+import { fnImport, fnFileProtocolPath } from './utils/index.js';
+import { fnAppDir } from './system.js';
 
 // unocss相关配置
 import { presetAttributify, presetUno, presetIcons } from 'unocss';

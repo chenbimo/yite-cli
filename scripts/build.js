@@ -1,6 +1,6 @@
 import { build } from 'vite';
 import path from 'path';
-import { fnCliDir } from '../utils/index.js';
+import { fnCliDir } from '../system.js';
 
 async function mainBuild(options) {
     await build({

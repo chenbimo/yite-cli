@@ -2,7 +2,8 @@ import path from 'path';
 import fs from 'fs-extra';
 import pacote from 'pacote';
 
-import { fnAppDir, log4state } from '../utils/index.js';
+import { log4state } from '../utils/index.js';
+import { fnAppDir } from '../system.js';
 
 async function mainUpdate(options) {
     try {

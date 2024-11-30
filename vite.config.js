@@ -24,7 +24,8 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 import { yiteRouter } from './plugins/router.js';
 import { yiteI18n } from './plugins/i18n.js';
 import { unocssConfig } from './unocss.js';
-import { fnFileProtocolPath, fnOmit, fnImport, fnAppDir, log4state } from './utils/index.js';
+import { fnFileProtocolPath, fnOmit, fnImport, log4state } from './utils/index.js';
+import { fnAppDir } from './system.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
 
@@ -202,10 +203,7 @@ export default defineViteConfig(async ({ command, mode }) => {
             plugins: allPlugins,
             css: {
                 preprocessorOptions: {
-                    scss: {
-                        api: 'modern',
-                        additionalData: `@use "@/styles/variable.scss" as *;`
-                    }
+                    scss: {}
                 }
             },
             resolve: {
