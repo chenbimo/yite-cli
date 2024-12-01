@@ -1,6 +1,6 @@
 {
     "name": "yite-cli",
-    "version": "3.8.1",
+    "version": "3.8.2",
     "description": "专注于vite + vue3 的项目开发脚手架",
     "main": "./index.js",
     "module": "./index.js",
@@ -40,8 +40,8 @@
         "LICENSE",
         "package.json",
         "README.md",
+        "system.js",
         "unocss.js",
-        "utils.js",
         "vite.config.js",
         "yite-cli.js"
     ],
