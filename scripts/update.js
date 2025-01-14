@@ -12,10 +12,33 @@ async function mainUpdate(options) {
         const fetchData = await fetch(`https://registry.npmmirror.com/@funpi/admin/latest`);
         const metaData = await fetchData.json();
         await pacote.extract(metaData.dist.tarball, updateDir, {});
-        fs.copySync(path.resolve(updateDir, 'src', 'pages', 'internal'), path.resolve(appDir, 'src', 'pages', 'internal'));
-        fs.copySync(path.resolve(updateDir, 'src', 'config', 'internal.js'), path.resolve(appDir, 'src', 'config', 'internal.js'));
-        fs.copySync(path.resolve(updateDir, 'src', 'utils', 'internal.js'), path.resolve(appDir, 'src', 'utils', 'internal.js'));
-        fs.copySync(path.resolve(updateDir, 'src', 'styles', 'internal.scss'), path.resolve(appDir, 'src', 'styles', 'internal.scss'));
+        [
+            {
+                type: 'dir',
+                source: path.resolve(updateDir, 'src', 'pages', 'internal'),
+                target: path.resolve(appDir, 'src', 'pages', 'internal')
+            },
+            {
+                type: 'file',
+                source: path.resolve(updateDir, 'src', 'config', 'internal.js'),
+                target: path.resolve(appDir, 'src', 'config', 'internal.js')
+            },
+            {
+                type: 'file',
+                source: path.resolve(updateDir, 'src', 'utils', 'internal.js'),
+                target: path.resolve(appDir, 'src', 'utils', 'internal.js')
+            },
+            {
+                type: 'file',
+                source: path.resolve(updateDir, 'src', 'styles', 'internal.scss'),
+                target: path.resolve(appDir, 'src', 'styles', 'internal.scss')
+            }
+        ].forEach((item) => {
+            if (item.type === 'dir') {
+                fs.copySync(item.source, item.target);
+                fs.ensureDirSync(item.source);
+            }
+        });
         console.log(log4state('success'), '项目更新成功!');
     } catch (error) {
         console.log('🚀 ~ file: update.js:20 ~ mainUpdate ~ error:', error);
