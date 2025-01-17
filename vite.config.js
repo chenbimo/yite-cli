@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { readFileSync } from 'node:fs';
 import { defineConfig as defineViteConfig } from 'vite';
 import viteVue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -8,7 +9,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import Inspect from 'vite-plugin-inspect';
 
 // import { viteZip as ZipFile } from 'vite-plugin-zip-file';
-import { ensureDirSync, readJsonSync, outputJsonSync } from 'fs-extra/esm';
+import { ensureDirSync, readJsonSync, outputJsonSync, ensureFileSync } from 'fs-extra/esm';
 import portfinder from 'portfinder';
 
 import { mergeAndConcat } from 'merge-anything';
@@ -28,6 +29,9 @@ import { fnFileProtocolPath, fnOmit, fnImport, log4state } from './utils/index.j
 import { fnAppDir } from './system.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
+const globalStylePath = path.resolve(appDir, 'src/styles/variable.scss');
+ensureFileSync(globalStylePath);
+const globalStyles = readFileSync(globalStylePath, 'utf-8');
 
 export default defineViteConfig(async ({ command, mode }) => {
     // 没有则生成目录
@@ -203,11 +207,17 @@ export default defineViteConfig(async ({ command, mode }) => {
             plugins: allPlugins,
             css: {
                 preprocessorOptions: {
-                    scss: {}
+                    scss: {
+                        additionalData: globalStyles
+                    }
                 }
             },
             resolve: {
                 alias: [
+                    {
+                        find: '_style',
+                        replacement: path.resolve(appDir, 'src', 'styles')
+                    },
                     {
                         find: '@',
                         replacement: path.resolve(appDir, 'src')
