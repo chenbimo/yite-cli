@@ -34,7 +34,7 @@ export async function fnImport(path, name, defaultValue) {
  * @returns array 环境变量数组
  */
 export function fnGetEnvNames(promptParams, appDir) {
-    const files = readdirSync(resolve(appDir, 'src', 'env'));
+    const files = readdirSync(appDir);
     const envFiles = files
         .filter((file) => {
             return /\.env\.[\da-z]+/.test(file);
