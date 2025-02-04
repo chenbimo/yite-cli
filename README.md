@@ -2,6 +2,10 @@
 
 `yite-cli` 是一个基于 `vite` 深度封装的 `vue3` 项目开发脚手架。
 
+**提示**
+
+本项目还处于开发状态，功能暂未稳定，请慎重使用。
+
 ### 仓库地址
 
 [github - https://github.com/chenbimo/yite-cli](https://github.com/chenbimo/yite-cli)

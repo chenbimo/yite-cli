@@ -26,9 +26,10 @@ import { yiteRouter } from './plugins/router.js';
 import { yiteI18n } from './plugins/i18n.js';
 import { unocssConfig } from './unocss.js';
 import { fnFileProtocolPath, fnOmit, fnImport, log4state } from './utils/index.js';
-import { fnAppDir } from './system.js';
+import { fnAppDir, fnCliDir } from './system.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
+const cliDir = fnCliDir();
 const globalStylePath = path.resolve(appDir, 'src/styles/variable.scss');
 ensureFileSync(globalStylePath);
 const globalStyles = readFileSync(globalStylePath, 'utf-8');
@@ -215,16 +216,28 @@ export default defineViteConfig(async ({ command, mode }) => {
             resolve: {
                 alias: [
                     {
-                        find: '_style',
-                        replacement: path.resolve(appDir, 'src', 'styles')
+                        find: /^vue$/,
+                        replacement: path.resolve(cliDir, 'node_modules', 'vue', 'dist', 'vue.esm-bundler.js')
+                    },
+                    {
+                        find: /^vue-i18n$/,
+                        replacement: path.resolve(cliDir, 'node_modules', 'vue-i18n', 'dist', 'vue-i18n.esm-bundler.js')
+                    },
+                    {
+                        find: /^vue-router$/,
+                        replacement: path.resolve(cliDir, 'node_modules', 'vue-router', 'dist', 'vue-router.esm-bundler.js')
+                    },
+                    {
+                        find: /^pinia$/,
+                        replacement: path.resolve(cliDir, 'node_modules', 'pinia', 'index.js')
+                    },
+                    {
+                        find: /^sass$/,
+                        replacement: path.resolve(cliDir, 'node_modules', 'sass', 'sass.default.js')
                     },
                     {
                         find: '@',
                         replacement: path.resolve(appDir, 'src')
-                    },
-                    {
-                        find: 'vue-i18n',
-                        replacement: 'vue-i18n/dist/vue-i18n.esm-bundler.js'
                     }
                 ]
             },
