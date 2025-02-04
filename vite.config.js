@@ -24,7 +24,7 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 // 内部文件
 import { yiteRouter } from './plugins/router.js';
 import { yiteI18n } from './plugins/i18n.js';
-import { unocssConfig } from './unocss.js';
+import { unocssConfig } from './unocss.config.js';
 import { fnFileProtocolPath, fnOmit, fnImport, log4state } from './utils/index.js';
 import { fnAppDir } from './system.js';
 

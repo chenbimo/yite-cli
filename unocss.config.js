@@ -3,7 +3,7 @@ import { fnImport, fnFileProtocolPath } from './utils/index.js';
 import { fnAppDir } from './system.js';
 
 // unocss相关配置
-import { presetAttributify, presetUno, presetIcons } from 'unocss';
+import { presetAttributify, presetUno, presetIcons } from 'unocss.config.js';
 import transformerVariantGroup from '@unocss/transformer-variant-group';
 import transformerCompileClass from '@unocss/transformer-compile-class';
 import transformerDirectives from '@unocss/transformer-directives';
