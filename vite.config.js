@@ -246,7 +246,6 @@ export default defineViteConfig(async ({ command, mode }) => {
             root: appDir,
             base: './',
             mode: process.env.YITE_CLI_ENV,
-            envDir: path.resolve(appDir, 'src', 'env'),
             logLevel: 'info',
             build: {
                 minify: process.env.YITE_CLI_MODE === 'development' ? false : true,
