@@ -1,6 +1,6 @@
 {
     "name": "yite-cli",
-    "version": "4.1.3",
+    "version": "4.2.0",
     "description": "专注于vite + vue3 的项目开发脚手架",
     "exports": {
         ".": "./index.js"
@@ -36,6 +36,7 @@
         "plugins/",
         "scripts/",
         "LICENSE",
+        "index.js",
         "package.json",
         "README.md",
         "system.js",

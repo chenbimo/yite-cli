@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { defineConfig as defineUnocssConfig } from 'unocss';
 import { fnImport, fnFileProtocolPath } from './utils/index.js';
 import { fnAppDir } from './system.js';
 
@@ -11,7 +12,7 @@ import transformerDirectives from '@unocss/transformer-directives';
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
 const yiteConfigPath = fnFileProtocolPath(path.resolve(appDir, 'yite.config.js'));
 const { yiteConfig } = await fnImport(yiteConfigPath, {});
-export const unocssConfig = Object.assign(
+const unocssConfig = Object.assign(
     {
         presets: [
             //
@@ -28,3 +29,5 @@ export const unocssConfig = Object.assign(
     },
     yiteConfig?.unocssConfig || {}
 );
+
+export default defineUnocssConfig(unocssConfig);
