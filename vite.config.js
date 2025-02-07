@@ -24,7 +24,7 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 import { yiteRouter } from './plugins/router.js';
 import { yiteI18n } from './plugins/i18n.js';
 import unocssConfig from './unocss.config.js';
-import { fnFileProtocolPath, fnOmit, fnImport, log4state } from './utils/index.js';
+import { fnFileProtocolPath, fnOmit, fnImport, log4state, getYiteNodeModules } from './utils/index.js';
 import { fnAppDir } from './system.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
@@ -215,23 +215,23 @@ export default defineViteConfig(async ({ command, mode }) => {
                 alias: [
                     {
                         find: /^vue$/,
-                        replacement: path.resolve(appDir, 'node_modules', 'vue', 'dist', 'vue.esm-bundler.js')
+                        replacement: getYiteNodeModules('vue/dist/vue.esm-bundler.js')
                     },
                     {
                         find: /^vue-i18n$/,
-                        replacement: path.resolve(appDir, 'node_modules', 'vue-i18n', 'dist', 'vue-i18n.esm-bundler.js')
+                        replacement: getYiteNodeModules('vue-i18n/dist/vue-i18n.esm-bundler.js')
                     },
                     {
                         find: /^vue-router$/,
-                        replacement: path.resolve(appDir, 'node_modules', 'vue-router', 'dist', 'vue-router.esm-bundler.js')
+                        replacement: getYiteNodeModules('vue-router/dist/vue-router.esm-bundler.js')
                     },
                     {
                         find: /^pinia$/,
-                        replacement: path.resolve(appDir, 'node_modules', 'pinia', 'index.js')
+                        replacement: getYiteNodeModules('pinia/index.js')
                     },
                     {
                         find: /^sass$/,
-                        replacement: path.resolve(appDir, 'node_modules', 'sass', 'sass.default.js')
+                        replacement: getYiteNodeModules('sass/sass.default.js')
                     },
                     {
                         find: '@',

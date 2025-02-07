@@ -1,7 +1,10 @@
 import { fileURLToPath } from 'node:url';
 import { basename, dirname, join, resolve } from 'node:path';
-import { readdirSync } from 'node:fs';
+import { readdirSync, existsSync } from 'node:fs';
 import { colors } from './colors.js';
+import { fnAppDir } from '../system.js';
+
+const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
 
 // 获取file协议的路径
 export function fnFileProtocolPath(_path) {
@@ -70,5 +73,18 @@ export const log4state = (state) => {
     }
     if (state === 'error') {
         return colors.red('x');
+    }
+};
+
+export const getYiteNodeModules = (name) => {
+    const filePath1 = resolve(appDir, 'node_modules', name);
+    const filePath2 = resolve(appDir, '..', 'node_modules', name);
+    const filePath3 = resolve(appDir, '..', '..', 'node_modules', name);
+    if (existsSync(filePath1) === true) {
+        return filePath1;
+    } else if (existsSync(filePath2) === true) {
+        return filePath2;
+    } else if (existsSync(filePath3)) {
+        return filePath3;
     }
 };
