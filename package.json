@@ -1,6 +1,6 @@
 {
     "name": "yite-cli",
-    "version": "4.3.0",
+    "version": "4.4.0",
     "description": "专注于vite + vue3 的项目开发脚手架",
     "exports": {
         "./unocss": "./unocss.config.js"
@@ -52,9 +52,9 @@
         "@vitejs/plugin-vue": "^5.2.1",
         "@vue-macros/reactivity-transform": "^1.1.6",
         "fs-extra": "^11.3.0",
-        "merge-anything": "^6.0.2",
+        "merge-anything": "^6.0.3",
         "pacote": "^21.0.0",
-        "pinia": "^2.3.1",
+        "pinia": "^3.0.0",
         "portfinder": "^1.0.32",
         "rollup-plugin-visualizer": "^5.14.0",
         "sass": "^1.84.0",
@@ -66,7 +66,7 @@
         "vite-plugin-inspect": "^10.1.1",
         "vite-plugin-vue-devtools": "^7.7.1",
         "vue": "^3.5.13",
-        "vue-i18n": "^11.1.0",
+        "vue-i18n": "^11.1.1",
         "vue-router": "^4.5.0"
     }
 }
