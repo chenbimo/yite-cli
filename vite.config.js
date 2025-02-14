@@ -227,7 +227,7 @@ export default defineViteConfig(async ({ command, mode }) => {
                     },
                     {
                         find: /^pinia$/,
-                        replacement: getYiteNodeModules('pinia/index.js')
+                        replacement: getYiteNodeModules('pinia/pinia.cjs')
                     },
                     {
                         find: /^sass$/,
