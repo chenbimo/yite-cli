@@ -1,6 +1,6 @@
 {
     "name": "yite-cli",
-    "version": "4.4.2",
+    "version": "4.4.3",
     "description": "专注于vite + vue3 的项目开发脚手架",
     "exports": {
         "./unocss": "./unocss.config.js"
