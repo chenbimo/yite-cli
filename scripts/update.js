@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs-extra';
+import { copySync, ensureDirSync } from 'fs-extra';
 import pacote from 'pacote';
 
 import { log4state } from '../utils/index.js';
@@ -35,8 +35,8 @@ async function mainUpdate(options) {
             }
         ].forEach((item) => {
             if (item.type === 'dir') {
-                fs.copySync(item.source, item.target);
-                fs.ensureDirSync(item.source);
+                copySync(item.source, item.target);
+                ensureDirSync(item.source);
             }
         });
         console.log(log4state('success'), '项目更新成功!');
