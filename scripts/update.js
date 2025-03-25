@@ -1,5 +1,5 @@
 import path from 'path';
-import { copySync, ensureDirSync } from 'fs-extra';
+import { copySync, ensureDirSync } from 'fs-extra/esm';
 import pacote from 'pacote';
 
 import { log4state } from '../utils/index.js';
