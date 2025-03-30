@@ -1,5 +1,5 @@
-import { resolve } from 'node:path';
-import { readFileSync, writeFileSync, mkdirSync, existsSync, dirname } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { defineConfig as defineViteConfig } from 'vite';
 import viteVue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';

@@ -1,5 +1,5 @@
-import { resolve } from 'node:path';
-import { cpSync, mkdirSync, existsSync, dirname, rmSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { cpSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import pacote from 'pacote';
 
 import { log4state } from '../utils/index.js';
