@@ -1,5 +1,5 @@
-import path from 'path';
-import { copySync, ensureDirSync } from 'fs-extra/esm';
+import { resolve } from 'node:path';
+import { cpSync, mkdirSync, existsSync, dirname, rmSync } from 'node:fs';
 import pacote from 'pacote';
 
 import { log4state } from '../utils/index.js';
@@ -8,36 +8,45 @@ import { fnAppDir } from '../system.js';
 async function mainUpdate(options) {
     try {
         const appDir = fnAppDir(options.workdir);
-        const updateDir = path.resolve(appDir, '.cache', 'npm-package');
+        const updateDir = resolve(appDir, '.cache', 'npm-package');
         const fetchData = await fetch(`https://registry.npmmirror.com/@funpi/admin/latest`);
         const metaData = await fetchData.json();
         await pacote.extract(metaData.dist.tarball, updateDir, {});
         [
             {
                 type: 'dir',
-                source: path.resolve(updateDir, 'src', 'pages', 'internal'),
-                target: path.resolve(appDir, 'src', 'pages', 'internal')
+                source: resolve(updateDir, 'src', 'pages', 'internal'),
+                target: resolve(appDir, 'src', 'pages', 'internal')
             },
             {
                 type: 'file',
-                source: path.resolve(updateDir, 'src', 'config', 'internal.js'),
-                target: path.resolve(appDir, 'src', 'config', 'internal.js')
+                source: resolve(updateDir, 'src', 'config', 'internal.js'),
+                target: resolve(appDir, 'src', 'config', 'internal.js')
             },
             {
                 type: 'file',
-                source: path.resolve(updateDir, 'src', 'utils', 'internal.js'),
-                target: path.resolve(appDir, 'src', 'utils', 'internal.js')
+                source: resolve(updateDir, 'src', 'utils', 'internal.js'),
+                target: resolve(appDir, 'src', 'utils', 'internal.js')
             },
             {
                 type: 'file',
-                source: path.resolve(updateDir, 'src', 'styles', 'internal.scss'),
-                target: path.resolve(appDir, 'src', 'styles', 'internal.scss')
+                source: resolve(updateDir, 'src', 'styles', 'internal.scss'),
+                target: resolve(appDir, 'src', 'styles', 'internal.scss')
             }
         ].forEach((item) => {
-            if (item.type === 'dir') {
-                copySync(item.source, item.target);
-                ensureDirSync(item.source);
+            const targetDir = item.type === 'dir' ? item.target : dirname(item.target);
+
+            // 删除目标文件或目录
+            if (existsSync(item.target)) {
+                rmSync(item.target, { recursive: true, force: true });
             }
+
+            // 创建目标目录
+            if (!existsSync(targetDir)) {
+                mkdirSync(targetDir, { recursive: true });
+            }
+
+            cpSync(item.source, item.target, { recursive: true });
         });
         console.log(log4state('success'), '项目更新成功!');
     } catch (error) {

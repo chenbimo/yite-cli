@@ -1,5 +1,5 @@
-import path from 'node:path';
-import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, dirname } from 'node:fs';
 import { defineConfig as defineViteConfig } from 'vite';
 import viteVue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -9,7 +9,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import Inspect from 'vite-plugin-inspect';
 
 // import { viteZip as ZipFile } from 'vite-plugin-zip-file';
-import { ensureDirSync, readJsonSync, outputJsonSync, ensureFileSync } from 'fs-extra/esm';
 import portfinder from 'portfinder';
 
 import { mergeAndConcat } from 'merge-anything';
@@ -28,33 +27,44 @@ import { fnFileProtocolPath, fnOmit, fnImport, log4state, getYiteNodeModules } f
 import { fnAppDir } from './system.js';
 
 const appDir = fnAppDir(process.env.YITE_CLI_WORK_DIR);
-const globalStylePath = path.resolve(appDir, 'src/styles/variable.scss');
-ensureFileSync(globalStylePath);
+const globalStylePath = resolve(appDir, 'src/styles/variable.scss');
+
+// 确保文件存在，如果不存在则创建（包括父目录）
+if (!existsSync(globalStylePath)) {
+    const dir = dirname(globalStylePath);
+    if (!existsSync(dir)) {
+        mkdirSync(dir, { recursive: true });
+    }
+    writeFileSync(globalStylePath, '', 'utf-8');
+}
+
 const globalStyles = readFileSync(globalStylePath, 'utf-8');
 
 export default defineViteConfig(async ({ command, mode }) => {
-    // 没有则生成目录
-    ensureDirSync(appDir, '.cache');
-    const yiteConfigPath = fnFileProtocolPath(path.resolve(appDir, 'yite.config.js'));
+    // 确保缓存目录存在
+    const cacheDir = resolve(appDir, '.cache');
+    if (!existsSync(cacheDir)) {
+        mkdirSync(cacheDir, { recursive: true });
+    }
+
+    const yiteConfigPath = fnFileProtocolPath(resolve(appDir, 'yite.config.js'));
     const { yiteConfig } = await fnImport(yiteConfigPath, 'yiteConfig', {});
     if (!yiteConfig.viteConfig) {
         console.log(`${log4state('error')} 请确认是否存在 yite.config.js 文件`);
         process.exit();
     }
 
-    const pkg = readJsonSync(path.resolve(appDir, 'package.json'), { throws: false }) || {};
+    // 读取 package.json
+    let pkg = {};
+    try {
+        const packageContent = readFileSync(resolve(appDir, 'package.json'), 'utf-8');
+        pkg = JSON.parse(packageContent);
+    } catch (e) {
+        // 如果文件不存在或解析失败，使用空对象
+        pkg = {};
+    }
 
     const findPort = await portfinder.getPortPromise({ port: 8000, stopPort: 9000 });
-
-    // 每个项目依赖包进行分割
-    // let splitDependencies = {};
-    // let includeDeps = [];
-    // for (let prop in pkg.dependencies) {
-    //     if (pkg.dependencies.hasOwnProperty(prop)) {
-    //         splitDependencies[prop] = [prop];
-    //         includeDeps.push(prop);
-    //     }
-    // }
 
     // 自动导入插件
     const autoImportConfig = mergeAndConcat(
@@ -108,10 +118,10 @@ export default defineViteConfig(async ({ command, mode }) => {
             ],
             dirs: [
                 //
-                path.resolve(appDir, 'src', 'plugins'),
-                path.resolve(appDir, 'src', 'hooks'),
-                path.resolve(appDir, 'src', 'utils'),
-                path.resolve(appDir, 'src', 'config')
+                resolve(appDir, 'src', 'plugins'),
+                resolve(appDir, 'src', 'hooks'),
+                resolve(appDir, 'src', 'utils'),
+                resolve(appDir, 'src', 'config')
             ],
             defaultExportByFilename: true,
             vueTemplate: true,
@@ -134,7 +144,7 @@ export default defineViteConfig(async ({ command, mode }) => {
         {
             dirs: [
                 //
-                path.resolve(appDir, 'src', 'components')
+                resolve(appDir, 'src', 'components')
             ],
             dts: '.cache/components.d.ts',
             version: 3,
@@ -149,18 +159,6 @@ export default defineViteConfig(async ({ command, mode }) => {
                 }) || []
         }
     );
-
-    // 代码分割
-    // let chunkSplitConfig = {
-    // strategy: 'default',
-    // customChunk: (args) => {
-    //     if (args.file.endsWith('.png')) {
-    //         return 'png';
-    //     }
-    //     return null;
-    // },
-    // customSplitting: Object.assign(splitDependencies, yiteConfig?.chunkSplit || {})
-    // };
 
     // 插件列表
     let allPlugins = [];
@@ -177,10 +175,6 @@ export default defineViteConfig(async ({ command, mode }) => {
     allPlugins.push(Components(componentsConfig));
     allPlugins.push(AutoImport(autoImportConfig));
     allPlugins.push(Unocss(unocssConfig));
-    // allPlugins.push(ChunkSplit(chunkSplitConfig));
-    // 默认不使用二维码，多个网卡情况下会很乱
-    // allPlugins.push(YiteQrcode());
-    // allPlugins.push(ZipFile(zipPlugin));
     allPlugins.push(
         visualizer({
             filename: '.cache/stats.html',
@@ -235,7 +229,7 @@ export default defineViteConfig(async ({ command, mode }) => {
                     },
                     {
                         find: '@',
-                        replacement: path.resolve(appDir, 'src')
+                        replacement: resolve(appDir, 'src')
                     }
                 ]
             },
@@ -253,19 +247,7 @@ export default defineViteConfig(async ({ command, mode }) => {
                 target: ['es2022'],
                 rollupOptions: {
                     plugins: [],
-                    output: {
-                        // TODO: 进一步研究 22
-                        // assetFileNames: ({ name }) => {
-                        //     if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
-                        //         return 'assets/images/[name]-[hash][extname]';
-                        //     }
-                        //     if (/\.css$/.test(name ?? '')) {
-                        //         return 'assets/css/[name]-[hash][extname]';
-                        //     }
-                        //     }
-                        //     return 'assets/[name]-[hash][extname]';
-                        // }
-                    }
+                    output: {}
                 }
             },
             server: {
@@ -278,6 +260,10 @@ export default defineViteConfig(async ({ command, mode }) => {
         },
         yiteConfig?.viteConfig || {}
     );
-    outputJsonSync(path.resolve(appDir, '.cache', 'vite-config.json'), viteConfig);
+
+    // 写入配置文件
+    const viteConfigPath = resolve(appDir, '.cache', 'vite-config.json');
+    writeFileSync(viteConfigPath, JSON.stringify(viteConfig, null, 2), 'utf-8');
+
     return viteConfig;
 });
