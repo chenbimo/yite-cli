@@ -53,19 +53,19 @@
         "@vue-macros/reactivity-transform": "^1.1.6",
         "merge-anything": "^6.0.6",
         "pacote": "^21.0.0",
-        "pinia": "^3.0.1",
+        "pinia": "^3.0.2",
         "portfinder": "^1.0.35",
         "rollup-plugin-visualizer": "^5.14.0",
-        "sass": "^1.86.0",
+        "sass": "^1.86.3",
         "unocss": "^66.0.0",
         "unplugin-auto-import": "^19.1.2",
         "unplugin-icons": "^22.1.0",
         "unplugin-vue-components": "^28.4.1",
-        "vite": "^6.2.3",
+        "vite": "^6.2.6",
         "vite-plugin-inspect": "^11.0.0",
         "vite-plugin-vue-devtools": "^7.7.2",
         "vue": "^3.5.13",
-        "vue-i18n": "^11.1.2",
+        "vue-i18n": "^11.1.3",
         "vue-router": "^4.5.0"
     }
 }
