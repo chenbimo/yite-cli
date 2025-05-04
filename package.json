@@ -1,6 +1,6 @@
 {
     "name": "yite-cli",
-    "version": "4.6.5",
+    "version": "4.6.6",
     "description": "专注于vite + vue3 的项目开发脚手架",
     "exports": {
         "./unocss": "./unocss.config.js"
@@ -46,18 +46,18 @@
     ],
     "author": "chensuiyi <bimostyle@qq.com>",
     "dependencies": {
-        "@unocss/transformer-compile-class": "^66.0.0",
-        "@unocss/transformer-directives": "^66.0.0",
-        "@unocss/transformer-variant-group": "^66.0.0",
+        "@unocss/transformer-compile-class": "^66.1.0",
+        "@unocss/transformer-directives": "^66.1.0",
+        "@unocss/transformer-variant-group": "^66.1.0",
         "@vitejs/plugin-vue": "^5.2.3",
-        "@vue-macros/reactivity-transform": "^1.1.6",
+        "@vue-macros/reactivity-transform": "^3.0.0-beta.10",
         "merge-anything": "^6.0.6",
         "pacote": "^21.0.0",
         "pinia": "^3.0.2",
         "portfinder": "^1.0.37",
         "rollup-plugin-visualizer": "^5.14.0",
         "sass": "^1.87.0",
-        "unocss": "^66.0.0",
+        "unocss": "^66.1.0",
         "unplugin-auto-import": "^19.1.2",
         "unplugin-icons": "^22.1.0",
         "unplugin-vue-components": "^28.5.0",
