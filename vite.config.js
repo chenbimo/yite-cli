@@ -1,6 +1,6 @@
 import { resolve, dirname } from 'node:path';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { defineConfig as defineViteConfig } from 'vite';
+import { defineConfig as defineViteConfig } from 'rolldown-vite';
 import viteVue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
